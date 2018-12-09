@@ -1,5 +1,8 @@
 package com.way.rapid.shoppingjkfinal.thread;
 
+import com.way.rapid.shoppingjkfinal.bean.HttpMethod;
+import com.way.rapid.shoppingjkfinal.util.HttpHelp;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,17 +17,19 @@ public class ProductHttpThread extends Thread {
     public void run() {
         //http请求
         try {
-            URL url = new URL("http://119.29.60.170:8080/shopping/product");
+            URL url = new URL(HttpHelp.URL + "product");
             HttpURLConnection httpURLConnection  = (HttpURLConnection) url.openConnection();
+            httpURLConnection.setRequestMethod(String.valueOf(HttpMethod.GET));
+            httpURLConnection.setConnectTimeout(HttpHelp.TIME_OUT);
             InputStream is = httpURLConnection.getInputStream();
             InputStreamReader inputStreamReader = new InputStreamReader(is, "utf-8");
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-            StringBuffer result = new StringBuffer();
+            StringBuffer stringBuffer = new StringBuffer();
             String temp ;
             while((temp = bufferedReader.readLine()) != null){
-                result.append(temp);
+                stringBuffer.append(temp);
             }
-            setResult(result.toString());
+            setResult(stringBuffer.toString());
         } catch (IOException e) {
             e.printStackTrace();
         }

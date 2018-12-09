@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.way.rapid.shoppingjkfinal.R;
 import com.way.rapid.shoppingjkfinal.bean.Product;
+import com.way.rapid.shoppingjkfinal.thread.ImageHttpThread;
 
 import java.util.List;
 
@@ -36,6 +37,7 @@ public class ProductShowAdapter extends ArrayAdapter {
             view = LayoutInflater.from(getContext()).inflate(resourceId, parent, false);
             productLayout.titleView = view.findViewById(R.id.product_title_text_view);
             productLayout.priceView = view.findViewById(R.id.product_price_text_view);
+            productLayout.imgView = view.findViewById(R.id.product_image_view);
             view.setTag(productLayout);
         } else {
             view = convertView;
@@ -43,6 +45,14 @@ public class ProductShowAdapter extends ArrayAdapter {
         }
         productLayout.titleView.setText(product.getTitle());
         productLayout.priceView.setText(product.getPrice());
+        ImageHttpThread imageHttpThread = new ImageHttpThread(product.getImage());
+        imageHttpThread.start();
+        try {
+            imageHttpThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        productLayout.imgView.setImageBitmap(imageHttpThread.getResultBitmap());
         return view;
     }
 
