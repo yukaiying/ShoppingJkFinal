@@ -7,6 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
+
+import com.way.rapid.shoppingjkfinal.R;
+import com.way.rapid.shoppingjkfinal.bean.Product;
 
 import java.util.List;
 
@@ -22,8 +26,12 @@ public class ProductShowAdapter extends ArrayAdapter {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        getItem(position);
+        Product product = (Product) getItem(position);
         View view  = LayoutInflater.from(getContext()).inflate(resourceId, parent, false);
+        TextView titleView = view.findViewById(R.id.product_title_text_view);
+        titleView.setText(product.getTitle());
+        TextView priceView = view.findViewById(R.id.product_price_text_view);
+        priceView.setText(product.getPrice());
         return view;
     }
 }
