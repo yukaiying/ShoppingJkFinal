@@ -5,8 +5,26 @@
     android:layout_height="match_parent"
     >
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/top_product"
+        android:gravity="center_vertical"
+        android:background="@drawable/product_top_border">
+      <ImageView
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:layout_alignParentStart="true"
+            android:src="@drawable/btn_back"/>
+        <ImageButton
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/shopping"/>
+    </RelativeLayout>
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/top_product"
         android:id="@+id/product_list_view"/>
 </RelativeLayout>
